@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../utils/message_type.dart';
 
@@ -37,9 +38,17 @@ class _ChatInputState extends State<ChatInput> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 1.0),
             child: IconButton(
+              icon: Icon(Icons.camera_alt),
+              color: Theme.of(context).primaryColor,
+              onPressed: () => widget.handleImagePicked(ImageSource.camera),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 1.0),
+            child: IconButton(
               icon: Icon(Icons.image),
               color: Theme.of(context).primaryColor,
-              onPressed: widget.handleImagePicked,
+              onPressed: () => widget.handleImagePicked(ImageSource.gallery),
             ),
           ),
           Container(
