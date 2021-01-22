@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../../../screens/full_photo_screen.dart';
 import '../../../utils/message_type.dart';
 
 class MessageBubble extends StatefulWidget {
@@ -84,11 +85,11 @@ class _MessageBubbleState extends State<MessageBubble> {
                               : Radius.circular(18),
                         ),
                       ),
-                      // width: 180.0,
+                      width: 200.0,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 14.0, vertical: 10.0),
                       margin: const EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 8.0),
+                          vertical: 5.0, horizontal: 8.0),
                       child: Column(
                         crossAxisAlignment: widget.isMe
                             ? CrossAxisAlignment.end
@@ -157,14 +158,14 @@ class _MessageBubbleState extends State<MessageBubble> {
                             ),
                           ),
                           onPressed: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => FullPhoto(
-                            //       photoUrl: document.data()['content'],
-                            //     ),
-                            //   ),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FullPhotoScreen(
+                                  photoUrl: widget.message,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       )
