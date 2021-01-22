@@ -6,8 +6,10 @@ import './message_list_item.dart';
 import '../../utils/const.dart';
 
 class MessageLists extends StatefulWidget {
-  MessageLists({Key key, @required this.chatId}) : super(key: key);
+  MessageLists({Key key, @required this.chatId, this.listScrollController})
+      : super(key: key);
   final String chatId;
+  final ScrollController listScrollController;
 
   @override
   _MessageListsState createState() => _MessageListsState();
@@ -16,7 +18,6 @@ class MessageLists extends StatefulWidget {
 class _MessageListsState extends State<MessageLists> {
   int _limit = 20;
   List<DocumentSnapshot> listMessage = new List.from([]);
-  final listScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +44,11 @@ class _MessageListsState extends State<MessageLists> {
                   listMessage.addAll(snapshot.data.docs);
                   return ListView.builder(
                     itemBuilder: (ctx, i) => MessageItem(
-                      index: i,
                       message: snapshot.data.docs[i],
                     ),
                     itemCount: snapshot.data.docs.length,
                     reverse: true,
-                    controller: listScrollController,
+                    controller: widget.listScrollController,
                   );
                 }
               },

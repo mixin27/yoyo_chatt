@@ -26,10 +26,12 @@ class _PeerChatState extends State<PeerChat> {
   _PeerChatState({@required this.other});
 
   final Map<String, dynamic> other;
-  User me;
+  DocumentSnapshot me;
+  User currentUser;
 
   final focusNode = FocusNode();
   final textEditingController = TextEditingController();
+  final listScrollController = ScrollController();
 
   String chatId;
   File imageFile;
@@ -38,16 +40,23 @@ class _PeerChatState extends State<PeerChat> {
   bool isLoading = false;
 
   void initPeerChat() {
-    me = FirebaseAuth.instance.currentUser;
+    currentUser = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance
+        .collection(usersCollection)
+        .doc(currentUser.uid)
+        .get()
+        .then((value) {
+      me = value;
+    });
 
-    if (me.uid.hashCode <= other['id'].hashCode) {
-      chatId = '${me.uid}-${other['id']}';
+    if (currentUser.uid.hashCode <= other['id'].hashCode) {
+      chatId = '${currentUser.uid}-${other['id']}';
     } else {
-      chatId = '${other['id']}-${me.uid}';
+      chatId = '${other['id']}-${currentUser.uid}';
     }
     FirebaseFirestore.instance
         .collection(usersCollection)
-        .doc(me.uid)
+        .doc(currentUser.uid)
         .update({'chattingWith': chatId});
 
     setState(() {});
@@ -56,16 +65,16 @@ class _PeerChatState extends State<PeerChat> {
   Future<bool> _onBackPressed() {
     FirebaseFirestore.instance
         .collection(usersCollection)
-        .doc(me.uid)
+        .doc(currentUser.uid)
         .update({'chattingWith': null});
     Navigator.of(context).pop();
     return Future.value(false);
   }
 
-  Future<void> getImage() async {
+  Future<void> getImage(ImageSource source) async {
     final imagePicker = ImagePicker();
-    final PickedFile pickedFile = await imagePicker.getImage(
-        source: ImageSource.gallery, imageQuality: 20);
+    final PickedFile pickedFile =
+        await imagePicker.getImage(source: source, imageQuality: 20);
     if (pickedFile == null) {
       return;
     }
@@ -131,14 +140,18 @@ class _PeerChatState extends State<PeerChat> {
 
       FirebaseFirestore.instance.runTransaction((transaction) async {
         transaction.set(docRef, {
-          'idFrom': me.uid,
+          'idFrom': currentUser.uid,
           'idTo': other['id'],
           'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
           'content': content,
           'type': type.index,
+          'fromAvatar': me.data()['photoUrl'],
+          'toAvatar': other['photoUrl'],
         });
       });
 
+      listScrollController.animateTo(0.0,
+          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
       if (isShowSticker) {
         setState(() {
           isShowSticker = !isShowSticker;
@@ -179,6 +192,7 @@ class _PeerChatState extends State<PeerChat> {
             children: [
               MessageLists(
                 chatId: chatId,
+                listScrollController: listScrollController,
               ),
               (isShowSticker)
                   ? Sticker(
