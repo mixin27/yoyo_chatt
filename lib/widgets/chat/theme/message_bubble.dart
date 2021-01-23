@@ -85,7 +85,8 @@ class _MessageBubbleState extends State<MessageBubble> {
                               : Radius.circular(18),
                         ),
                       ),
-                      width: 200.0,
+                      // width: 200.0,
+                      constraints: BoxConstraints(maxWidth: 200),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 14.0, vertical: 10.0),
                       margin: const EdgeInsets.symmetric(
