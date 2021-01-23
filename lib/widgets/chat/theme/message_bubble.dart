@@ -115,7 +115,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                   )
                 : widget.type == MessageType.IMAGE
                     ? Container(
-                        margin: EdgeInsets.only(left: 10.0),
+                        margin: EdgeInsets.only(left: 10.0, bottom: 6.0),
                         child: FlatButton(
                           padding: EdgeInsets.all(0),
                           child: Material(
