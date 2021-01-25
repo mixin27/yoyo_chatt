@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../../../screens/full_photo_screen.dart';
 import '../../../utils/message_type.dart';
 
 class MessageBubble extends StatefulWidget {
@@ -12,6 +13,7 @@ class MessageBubble extends StatefulWidget {
     this.isMe,
     this.time,
     this.peerAvatar,
+    this.username,
   }) : super(key: key);
 
   final String message;
@@ -19,6 +21,7 @@ class MessageBubble extends StatefulWidget {
   final bool isMe;
   final String time;
   final String peerAvatar;
+  final String username;
 
   @override
   _MessageBubbleState createState() => _MessageBubbleState();
@@ -63,7 +66,17 @@ class _MessageBubbleState extends State<MessageBubble> {
                           ),
                         ),
                       )
-                    : Container(width: 35.0)
+                    : Container(
+                        width: 35.0,
+                        child: CircleAvatar(
+                          radius: 15.0,
+                          child: FittedBox(
+                            child: Text(
+                              widget.username.characters.first,
+                            ),
+                          ),
+                        ),
+                      )
                 : Container(),
             widget.type == MessageType.TEXT
                 ? GestureDetector(
@@ -84,11 +97,12 @@ class _MessageBubbleState extends State<MessageBubble> {
                               : Radius.circular(18),
                         ),
                       ),
-                      // width: 180.0,
+                      // width: 200.0,
+                      constraints: BoxConstraints(maxWidth: 200),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 14.0, vertical: 10.0),
                       margin: const EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 8.0),
+                          vertical: 5.0, horizontal: 8.0),
                       child: Column(
                         crossAxisAlignment: widget.isMe
                             ? CrossAxisAlignment.end
@@ -113,7 +127,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                   )
                 : widget.type == MessageType.IMAGE
                     ? Container(
-                        margin: EdgeInsets.only(left: 10.0),
+                        margin: EdgeInsets.only(left: 10.0, bottom: 6.0),
                         child: FlatButton(
                           padding: EdgeInsets.all(0),
                           child: Material(
@@ -157,14 +171,15 @@ class _MessageBubbleState extends State<MessageBubble> {
                             ),
                           ),
                           onPressed: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => FullPhoto(
-                            //       photoUrl: document.data()['content'],
-                            //     ),
-                            //   ),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FullPhotoScreen(
+                                  title: 'From ${widget.username}',
+                                  photoUrl: widget.message,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       )

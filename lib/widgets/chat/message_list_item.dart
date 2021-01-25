@@ -27,6 +27,9 @@ class MessageItem extends StatelessWidget {
         peerAvatar: message['idFrom'] == me
             ? message['toAvatar']
             : message['fromAvatar'],
+        username: message['idFrom'] == me
+            ? message['toUsername']
+            : message['fromUsername'],
       ),
     );
   }

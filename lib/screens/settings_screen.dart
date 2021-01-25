@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -30,6 +31,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final userNameTextEditingController = TextEditingController();
   final phoneNumberTextEditingController = TextEditingController();
 
+  // void onLogoutTap() {
+  //   showDialog(
+  //       context: context,
+  //       builder: (ctx) => Dismissible(
+  //             key: ValueKey(widget.key),
+  //             onDismissed: (direction) {
+  //               Navigator.of(ctx).pop();
+  //             },
+  //             child: AlertDialog(
+  //               title: Text('Logout'),
+  //               content: Text('Are you sure to want to log out?'),
+  //               actions: [
+  //                 FlatButton(
+  //                   onPressed: handleSignout,
+  //                   child: Text('OK'),
+  //                 ),
+  //               ],
+  //             ),
+  //           ));
+  // }
+
+  void handleSignout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (_isGoogleSignIn) {
+      final googleSignIn = GoogleSignIn();
+      googleSignIn.disconnect();
+      googleSignIn.signOut();
+    }
+
+    prefs.clear();
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pop();
+  }
+
   void readLocal() async {
     prefs = await SharedPreferences.getInstance();
     _isGoogleSignIn = prefs.getBool(prefsIsGoogleSignIn);
@@ -41,7 +76,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void handleProfileImageTap(String url) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => FullPhotoScreen(photoUrl: url),
+        builder: (ctx) =>
+            FullPhotoScreen(title: 'Profile Image', photoUrl: url),
       ),
     );
   }
@@ -296,9 +332,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         'Log out',
                         style: TextStyle(color: Colors.red),
                       ),
-                      onTap: () {
-                        Fluttertoast.showToast(msg: 'Log out.');
-                      },
+                      onTap: handleSignout,
                     ),
                   ],
                 ),

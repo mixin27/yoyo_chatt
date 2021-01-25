@@ -9,8 +9,6 @@ import '../widgets/user_list_item.dart';
 import '../utils/const.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const routeName = '/home';
-
   void handleSignout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getBool(prefsIsGoogleSignIn)) {
