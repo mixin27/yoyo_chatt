@@ -76,7 +76,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void handleProfileImageTap(String url) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => FullPhotoScreen(photoUrl: url),
+        builder: (ctx) =>
+            FullPhotoScreen(title: 'Profile Image', photoUrl: url),
       ),
     );
   }

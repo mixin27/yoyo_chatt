@@ -13,6 +13,7 @@ class MessageBubble extends StatefulWidget {
     this.isMe,
     this.time,
     this.peerAvatar,
+    this.username,
   }) : super(key: key);
 
   final String message;
@@ -20,6 +21,7 @@ class MessageBubble extends StatefulWidget {
   final bool isMe;
   final String time;
   final String peerAvatar;
+  final String username;
 
   @override
   _MessageBubbleState createState() => _MessageBubbleState();
@@ -64,7 +66,17 @@ class _MessageBubbleState extends State<MessageBubble> {
                           ),
                         ),
                       )
-                    : Container(width: 35.0)
+                    : Container(
+                        width: 35.0,
+                        child: CircleAvatar(
+                          radius: 15.0,
+                          child: FittedBox(
+                            child: Text(
+                              widget.username.characters.first,
+                            ),
+                          ),
+                        ),
+                      )
                 : Container(),
             widget.type == MessageType.TEXT
                 ? GestureDetector(
@@ -163,6 +175,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => FullPhotoScreen(
+                                  title: 'From ${widget.username}',
                                   photoUrl: widget.message,
                                 ),
                               ),

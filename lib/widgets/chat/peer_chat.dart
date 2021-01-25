@@ -147,6 +147,8 @@ class _PeerChatState extends State<PeerChat> {
           'type': type.index,
           'fromAvatar': me.data()['photoUrl'],
           'toAvatar': other['photoUrl'],
+          'fromUsername': me.data()['username'],
+          'toUsername': other['username'],
         });
       });
 
