@@ -74,7 +74,7 @@ class _PeerChatState extends State<PeerChat> {
   Future<void> getImage(ImageSource source) async {
     final imagePicker = ImagePicker();
     final PickedFile pickedFile =
-        await imagePicker.getImage(source: source, imageQuality: 20);
+        await imagePicker.getImage(source: source, imageQuality: 60);
     if (pickedFile == null) {
       return;
     }

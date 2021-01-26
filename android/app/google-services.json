@@ -7,55 +7,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1023688435377:android:116ce25df23094520c2490",
-        "android_client_info": {
-          "package_name": "com.norm.flutter_yoyo_chatt"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1023688435377-beaa381e1kfc3a6fre488fsp0tsvml7k.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.norm.flutter_yoyo_chatt",
-            "certificate_hash": "1bdd2ba9f805f33acb1847b2626dec63a1a7317a"
-          }
-        },
-        {
-          "client_id": "1023688435377-0289mafho70r4fg6n62li5tegpnrcl59.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAH4fejCTMRk202sIa5L5VcRbMHt881zyY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1023688435377-0289mafho70r4fg6n62li5tegpnrcl59.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1023688435377:android:f343c3d8ff0de2b20c2490",
+        "mobilesdk_app_id": "1:1023688435377:android:a68f6469e638d9f10c2490",
         "android_client_info": {
           "package_name": "com.norm.yoyo_chatt"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1023688435377-ctm23jcgmu6miibfcmgpf787a7ca8ld7.apps.googleusercontent.com",
+          "client_id": "1023688435377-i8hbe4r48bak09npbs8okjvah119iqc0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.norm.yoyo_chatt",
             "certificate_hash": "1bdd2ba9f805f33acb1847b2626dec63a1a7317a"
+          }
+        },
+        {
+          "client_id": "1023688435377-m8a0urf0jlcimkjp3qjpnd1s83pg4i6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.norm.yoyo_chatt",
+            "certificate_hash": "d180c08bc7885d82b6ad14f6f810b4b1cdeb8b7d"
           }
         },
         {

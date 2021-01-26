@@ -85,7 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> getImage() async {
     final imagePicker = ImagePicker();
     final pickedFile = await imagePicker.getImage(
-        source: ImageSource.gallery, imageQuality: 20);
+        source: ImageSource.gallery, imageQuality: 50);
     if (pickedFile == null) {
       return;
     }

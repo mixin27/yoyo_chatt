@@ -73,6 +73,7 @@ class _AuthScreenState extends State<AuthScreen> {
       });
     } catch (err) {
       print(err);
+      Fluttertoast.showToast(msg: err.toString());
       setState(() {
         _isLoading = false;
       });
@@ -132,8 +133,18 @@ class _AuthScreenState extends State<AuthScreen> {
           _isLoading = false;
         });
       }
+    } on PlatformException catch (err) {
+      var message = 'An error occurred, please check your credentials!';
+      if (err.message != null) {
+        message = err.message;
+      }
+      Fluttertoast.showToast(msg: message);
+      setState(() {
+        _isLoading = false;
+      });
     } catch (err) {
       print(err);
+      Fluttertoast.showToast(msg: err.toString());
       setState(() {
         _isLoading = false;
       });
