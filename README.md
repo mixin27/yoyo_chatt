@@ -1,16 +1,30 @@
-# yoyo_chatt
+# Yoyo Chatt
 
-A new Flutter project.
+A simple chat application built with Fultter. I built this project for practicing the flutter application.
 
-## Getting Started
+# Features
 
-This project is a starting point for a Flutter application.
+- Account `Sign Up` and `Login` with `Email/Password` or `Google SignIn`.
+- Peer to peer chat.
+- Simple chat interface.
+- Media message - `Image` only for now.
+- Static some `emoji`.
+- User account settings.
+- User avatar uploading.
 
-A few resources to get you started if this is your first Flutter project:
+# Technology
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Flutter
+- Firebase
+- Third-party libraries
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# TO-DO
+
+- [ ] Group chat
+- [ ] Add more `emoji`
+- [ ] Change `Login/SignUp` page design.
+- [ ] Add `friend` action and `friends management`.
+- [ ] Profile view for other user.
+- [ ] And more...
+
+> You can download and test for fun this sample application [here](https://play.google.com/store/apps/details?id=com.norm.yoyo_chatt).
