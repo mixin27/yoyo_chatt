@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class ProfileImage extends StatelessWidget {
-  ProfileImage({Key key, @required this.imgUrl, this.handleImageTap}) : super(key: key);
+  ProfileImage({Key key, @required this.imgUrl, this.handleImageTap})
+      : super(key: key);
   final imgUrl;
 
   final Function handleImageTap;

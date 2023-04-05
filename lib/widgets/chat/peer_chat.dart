@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -26,7 +25,7 @@ class _PeerChatState extends State<PeerChat> {
   _PeerChatState({@required this.other});
 
   final Map<String, dynamic> other;
-  DocumentSnapshot me;
+  DocumentSnapshot<Map<String, dynamic>> me;
   User currentUser;
 
   final focusNode = FocusNode();
@@ -73,8 +72,10 @@ class _PeerChatState extends State<PeerChat> {
 
   Future<void> getImage(ImageSource source) async {
     final imagePicker = ImagePicker();
-    final PickedFile pickedFile =
-        await imagePicker.getImage(source: source, imageQuality: 60);
+    final pickedFile = await imagePicker.pickImage(
+      source: source,
+      imageQuality: 60,
+    );
     if (pickedFile == null) {
       return;
     }

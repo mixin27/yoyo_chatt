@@ -102,7 +102,8 @@ class HomeScreen extends StatelessWidget {
             return ListView.builder(
               padding: const EdgeInsets.all(16.0),
               itemBuilder: (ctx, index) => UserListItem(
-                userData: snapshot.data.docs[index],
+                userData: snapshot.data.docs[index]
+                    as DocumentSnapshot<Map<String, dynamic>>,
               ),
               itemCount: snapshot.data.docs.length,
             );

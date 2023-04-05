@@ -61,7 +61,8 @@ class _MessageBubbleState extends State<MessageBubble> {
                             child: CircularProgressIndicator(
                               strokeWidth: 1.0,
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                  Theme.of(context).accentColor),
+                                Theme.of(context).colorScheme.secondary,
+                              ),
                             ),
                           ),
                         ),
@@ -116,8 +117,8 @@ class _MessageBubbleState extends State<MessageBubble> {
                               color: widget.isMe
                                   ? Colors.white
                                   : Theme.of(context)
-                                      .accentTextTheme
-                                      .headline6
+                                      .textTheme
+                                      .titleLarge
                                       .color,
                             ),
                           ),
@@ -128,8 +129,10 @@ class _MessageBubbleState extends State<MessageBubble> {
                 : widget.type == MessageType.IMAGE
                     ? Container(
                         margin: EdgeInsets.only(left: 10.0, bottom: 6.0),
-                        child: FlatButton(
-                          padding: EdgeInsets.all(0),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
                           child: Material(
                             borderRadius: BorderRadius.all(
                               Radius.circular(8.0),
@@ -152,7 +155,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                                 ),
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).colorScheme.secondary,
                                   ),
                                 ),
                               ),
@@ -203,7 +206,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                   '${DateFormat('dd MMM, hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(widget.time)))}',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Theme.of(context).accentTextTheme.headline6.color,
+                    color: Theme.of(context).textTheme.titleLarge.color,
                   ),
                 ),
               )

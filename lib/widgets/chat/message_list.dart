@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import './message_list_item.dart';
@@ -37,7 +36,8 @@ class _MessageListsState extends State<MessageLists> {
                   return Center(
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).accentColor),
+                        Theme.of(context).colorScheme.secondary,
+                      ),
                     ),
                   );
                 } else {

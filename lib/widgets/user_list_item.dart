@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,7 +12,7 @@ class UserListItem extends StatelessWidget {
     @required this.userData,
   }) : super(key: key);
 
-  final DocumentSnapshot userData;
+  final DocumentSnapshot<Map<String, dynamic>> userData;
   final currentUser = FirebaseAuth.instance.currentUser;
 
   @override
@@ -56,7 +55,8 @@ class UserListItem extends StatelessWidget {
                             padding: EdgeInsets.all(5.0),
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation(
-                                  Theme.of(ctx).accentColor),
+                                Theme.of(ctx).colorScheme.secondary,
+                              ),
                             ),
                           ),
                           fit: BoxFit.cover,
@@ -68,7 +68,8 @@ class UserListItem extends StatelessWidget {
                   userData.data()['username'],
                 ),
                 subtitle: Text(
-                    'Since ${DateFormat.yMMMd().format(DateTime.fromMillisecondsSinceEpoch(int.parse(userData.data()['createdAt'].toString())))}'),
+                  'Since ${DateFormat.yMMMd().format(DateTime.fromMillisecondsSinceEpoch(int.parse(userData.data()['createdAt'].toString())))}',
+                ),
               ),
             ),
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../utils/message_type.dart';
 
@@ -14,7 +13,7 @@ class StickerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return TextButton(
       onPressed: () => handleStickerSend(
         stickerName,
         MessageType.STICKER,

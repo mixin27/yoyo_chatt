@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm({
@@ -70,7 +69,7 @@ class _AuthFormState extends State<AuthForm> {
             children: [
               Text(
                 _isLogin ? 'Login' : 'Sign Up',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               Form(
                 key: _formKey,
@@ -132,18 +131,18 @@ class _AuthFormState extends State<AuthForm> {
                     if (widget.isLoading)
                       CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation(
-                          Theme.of(context).accentColor,
+                          Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     if (!widget.isLoading)
-                      RaisedButton(
+                      FilledButton(
                         child: Text(
                           _isLogin ? 'LOGIN' : 'SIGN UP',
                         ),
                         onPressed: _trySubmit,
                       ),
                     if (!widget.isLoading)
-                      FlatButton(
+                      TextButton(
                         child: Text(
                           _isLogin
                               ? 'Create new account'
@@ -160,9 +159,12 @@ class _AuthFormState extends State<AuthForm> {
                 ),
               ),
               Divider(),
-              RaisedButton(
+              FilledButton(
                 child: Text('SIGN IN WITH GOOGLE'),
-                color: Colors.red,
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
                 onPressed: _tryGoogleSignIn,
               ),
             ],

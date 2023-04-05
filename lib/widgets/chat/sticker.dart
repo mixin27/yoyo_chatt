@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 import './sticker_button.dart';
 
@@ -24,7 +23,7 @@ class Sticker extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10.0),
             child: Text(
               'Sticker Pack Name',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Column(

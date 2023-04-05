@@ -84,8 +84,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> getImage() async {
     final imagePicker = ImagePicker();
-    final pickedFile = await imagePicker.getImage(
-        source: ImageSource.gallery, imageQuality: 50);
+    final pickedFile = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+    );
+
     if (pickedFile == null) {
       return;
     }
@@ -170,14 +173,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: [
                       Text(
                         'Personal Information',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Divider(),
                       SizedBox(height: 10.0),
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          StreamBuilder<DocumentSnapshot>(
+                          StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                             stream: FirebaseFirestore.instance
                                 .collection(usersCollection)
                                 .doc(currentUser.uid)
@@ -214,7 +217,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           SizedBox(height: 10.0),
                           _isLoading
                               ? CircularProgressIndicator()
-                              : FlatButton.icon(
+                              : TextButton.icon(
                                   onPressed: getImage,
                                   icon: Icon(
                                     Icons.photo,
@@ -225,7 +228,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ),
                                 ),
                           Divider(),
-                          StreamBuilder<DocumentSnapshot>(
+                          StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                               stream: FirebaseFirestore.instance
                                   .collection(usersCollection)
                                   .doc(currentUser.uid)
@@ -293,7 +296,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     Text(
                       'Additional Settings',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Divider(),
                     ListTile(
