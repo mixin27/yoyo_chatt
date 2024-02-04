@@ -1,0 +1,70 @@
+# code formatting
+format:
+  - dart format lib .
+  - dart run import_sorter:main
+
+# deploy firebase firestore rules
+# need firebase_tools cli
+deploy:firestore:
+  - firebase deploy --only firestore
+
+# code generation
+gen:locale:
+  - dart run easy_localization:generate -S assets/translations -O lib/l10n -o locale_keys.g.dart -f keys
+
+gen:
+  - dart run build_runner clean
+  - dart run build_runner build -d
+
+watch:
+  - dart run build_runner clean
+  - dart run build_runner watch -d
+
+gen:once:
+  - derry gen
+  - derry gen:locale
+
+gen:watch:
+  - derry watch
+
+# Delete all build_runner generated files
+# Only work on macOS
+delete:gen:
+  - find . -maxdepth 20 -type f \( -name "*.g.dart" -o -name "*.gr.dart" -o  -name "*.freezed.dart" -o  -name "*.gen.dart" -o  -name "*.chopper.dart" \) -delete
+
+# Deployment Android
+build:apk:
+  - flutter clean
+  - flutter pub get
+  - flutter build apk --split-per-abi --target lib/main.dart
+
+build:aab:
+  - flutter clean
+  - flutter pub get
+  - flutter build appbundle --target lib/main.dart
+
+# clean
+clean:
+  - flutter clean
+  - flutter pub get
+
+purge:
+  - pod deintegrate
+  #- rm Flutter/Flutter.podspec
+  - flutter clean
+  - flutter pub get
+  #- pod install
+  #- flutter run
+
+purge:all:
+  - pod deintegrate
+  - rm Flutter/Flutter.podspec
+  - flutter clean
+  - flutter pub cache repair
+  - flutter pub get
+  #- pod install
+  - flutter run
+
+start:ios:
+  - xcrun simctl list
+  - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
