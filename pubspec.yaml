@@ -14,6 +14,12 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   flutter_firebase_chat_core: ^1.6.7
+  firebase_core: ^2.25.3
+  firebase_auth: ^4.17.3
+  cloud_firestore: ^4.15.3
+  firebase_crashlytics: ^3.4.13
+  firebase_storage: ^11.6.4
+  firebase_analytics: ^10.8.4
 
 dev_dependencies:
   flutter_test:

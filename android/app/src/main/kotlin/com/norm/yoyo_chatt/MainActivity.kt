@@ -1,4 +1,4 @@
-package com.norm.yoyo_chatt.yoyo_chatt
+package com.norm.yoyo_chatt
 
 import io.flutter.embedding.android.FlutterActivity
 
