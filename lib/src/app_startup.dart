@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'package:yoyo_chatt/firebase_options.dart';
 
 part 'app_startup.g.dart';
 
@@ -16,13 +13,6 @@ FutureOr<void> appStartup(AppStartupRef ref) async {
   });
 
   // await for all initialization code to be complete before returning
-  // we can use `Future.wait` for independent long run tasks.
-  await Future.wait([
-    // Firebase init
-    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
-    // list of providers to be warmed up
-    // ref.watch(onboardingRepositoryProvider.future),
-  ]);
 }
 
 /// Widget class to manage asynchronous app initialization

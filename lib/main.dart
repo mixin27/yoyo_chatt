@@ -1,14 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:yoyo_chatt/src/shared/utils/onesignal/onesignal.dart';
+import 'firebase_options.dart';
 import 'src/app.dart';
 import 'src/app_startup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+  await initOneSignal();
 
   // * Register error handlers. For more info, see:
   // * https://docs.flutter.dev/testing/errors
@@ -17,7 +25,7 @@ void main() async {
   // * Entry point of the app
   runApp(ProviderScope(
     child: AppStartupWidget(
-      onLoaded: (context) => const MyApp(),
+      onLoaded: (context) => MyApp(),
     ),
   ));
 }
@@ -29,10 +37,10 @@ void registerErrorHandlers() {
     debugPrint(details.toString());
     // errorLogger.logError(details.exception, details.stack);
 
-    if (kReleaseMode) {
-      // Pass all uncaught "fatal" errors from the framework to Crashlytics
-      FirebaseCrashlytics.instance.recordFlutterFatalError(details);
-    }
+    // if (kReleaseMode) {
+    // Pass all uncaught "fatal" errors from the framework to Crashlytics
+    FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+    // }
   };
 
   // * Handle errors from the underlying platform/OS
@@ -41,9 +49,9 @@ void registerErrorHandlers() {
     // errorLogger.logError(error, stack);
 
     // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-    if (kReleaseMode) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    }
+    // if (kReleaseMode) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    // }
     return true;
   };
 
