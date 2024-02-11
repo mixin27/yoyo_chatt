@@ -9,7 +9,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yoyo_chatt/src/shared/utils/onesignal/onesignal.dart';
 import 'firebase_options.dart';
 import 'src/app.dart';
-import 'src/app_startup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,10 +23,13 @@ void main() async {
 
   // * Entry point of the app
   runApp(ProviderScope(
-    child: AppStartupWidget(
-      onLoaded: (context) => MyApp(),
-    ),
+    child: MyApp(),
   ));
+  // runApp(ProviderScope(
+  //   child: AppStartupWidget(
+  //     onLoaded: (context) => MyApp(),
+  //   ),
+  // ));
 }
 
 void registerErrorHandlers() {
