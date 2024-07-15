@@ -22,7 +22,7 @@ class AppBootstrap {
     return UncontrolledProviderScope(
       container: container,
       child: AppStartupWidget(
-        onLoaded: (context) => const MyApp(),
+        onLoaded: (context) => MyApp(),
       ),
     );
   }
