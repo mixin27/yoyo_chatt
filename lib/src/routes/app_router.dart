@@ -6,7 +6,9 @@ import 'package:yoyo_chatt/src/routes/routes.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
-        // AutoRoute(page: HomeRoute.page, path: '/', guards: [AuthGuard()]),
-        AutoRoute(page: EmailPasswordSignInRoute.page, path: '/'),
+        AutoRoute(page: HomeRoute.page, path: '/', guards: [AuthGuard()]),
+
+        // Authentication
+        AutoRoute(page: EmailPasswordSignInRoute.page, path: '/auth/login'),
       ];
 }

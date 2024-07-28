@@ -8,8 +8,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:yoyo_chatt/src/shared/errors.dart';
-import 'app.dart';
 import 'app_startup.dart';
+import 'features/app/presentation/app.dart';
 
 /// Helper class to initialize services and configure the error handlers
 class AppBootstrap {

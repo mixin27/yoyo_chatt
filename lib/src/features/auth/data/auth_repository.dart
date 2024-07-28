@@ -37,6 +37,10 @@ class AuthRepository {
     );
   }
 
+  Future<void> signOut() {
+    return _auth.signOut();
+  }
+
   /// Notifies about changes to the user's sign-in state (such as sign-in or
   /// sign-out).
   Stream<AppUser?> authStateChanges() {
