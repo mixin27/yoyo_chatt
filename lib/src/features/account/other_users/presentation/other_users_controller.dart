@@ -1,11 +1,11 @@
-import 'package:flutter_chat_types/flutter_chat_types.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'users_page_controller.g.dart';
+part 'other_users_controller.g.dart';
 
 @riverpod
-class UsersPageController extends _$UsersPageController {
+class OtherUsersController extends _$OtherUsersController {
   @override
   FutureOr<void> build() {
     // return ;
@@ -13,13 +13,13 @@ class UsersPageController extends _$UsersPageController {
 }
 
 @Riverpod(keepAlive: true)
-class UsersListStream extends _$UsersListStream {
-  Stream<List<User>> _fetchUsers() {
+class OtherUsersStream extends _$OtherUsersStream {
+  Stream<List<types.User>> _fetchUsers() {
     return FirebaseChatCore.instance.users();
   }
 
   @override
-  Stream<List<User>> build() {
+  Stream<List<types.User>> build() {
     return _fetchUsers();
   }
 }

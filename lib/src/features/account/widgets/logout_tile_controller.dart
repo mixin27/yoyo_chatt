@@ -13,10 +13,6 @@ class LogoutTileController extends _$LogoutTileController {
 
   Future<void> logout() async {
     final authRepository = ref.read(authRepositoryProvider);
-
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await authRepository.signOut();
-    });
+    await authRepository.signOut();
   }
 }

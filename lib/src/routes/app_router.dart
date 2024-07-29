@@ -10,6 +10,7 @@ class AppRouter extends $AppRouter {
 
         // Chat
         AutoRoute(page: ChatListRoute.page, path: '/chat/list'),
+        AutoRoute(page: ChatMessageRoute.page, path: '/chat/message/:id'),
 
         // Account
         AutoRoute(page: OtherUsersRoute.page, path: '/account/other-users'),
