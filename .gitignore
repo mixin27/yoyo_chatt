@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+migrate_working_dir/
 
 # IntelliJ related
 *.iml
@@ -26,16 +27,50 @@
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
-.packages
 .pub-cache/
 .pub/
 /build/
-
-# Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+## Environment Variables
+.env
+.env.dev
+.env.stg
+.env.prod
+
+# Firebase local emulator exports
+firebase-exports
+
+
+# Ignore test coverage data
+coverage/lcov.info
+
+# Firebase CLI config
+.firebaserc
+
+# Firebase
+lib/firebase_options.dart
+ios/Runner/GoogleService-Info.plist
+ios/firebase_app_id_file.json
+macos/Runner/GoogleService-Info.plist
+macos/firebase_app_id_file.json
+android/app/google-services.json
+
+# generated files
+**/*.chopper.dart
+**/*.freezed.dart
+**/*.g.dart
+**/*.gen.dart
+**/*.gr.dart
+
+/node_modules/

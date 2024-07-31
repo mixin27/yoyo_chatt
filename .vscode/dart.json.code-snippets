@@ -1,0 +1,7 @@
+{
+  "g part import": {
+    "prefix": "ptg",
+    "body": ["part '${TM_FILENAME_BASE}.g.dart';", ""],
+    "description": "part import for g generated file"
+  }
+}
