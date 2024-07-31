@@ -1,0 +1,30 @@
+name: Main Workflow
+
+concurrency:
+  group: $-$
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  # semantic-pull-request:
+  #   uses: ./.github/workflows/semantic_pull_request.yaml
+
+  analyze:
+    uses: ./.github/workflows/flutter_package.yaml
+    with:
+      flutter_channel: stable
+
+  # spell-check:
+  #   uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
+  #   with:
+  #     includes: |
+  #       **/*.md
+  #     modified_files_only: false

@@ -1,0 +1,22 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "yoyo-chatt",
+          "appId": "1:727293610986:android:41f1abb28db9ba05d78093",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "yoyo-chatt",
+          "configurations": {
+            "android": "1:727293610986:android:41f1abb28db9ba05d78093",
+            "ios": "1:727293610986:ios:dc491bf8f3c65227d78093"
+          }
+        }
+      }
+    }
+  }
+}

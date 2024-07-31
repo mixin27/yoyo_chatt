@@ -1,0 +1,42 @@
+{
+  "name": "yoyo_chatt",
+  "version": "1.0.0",
+  "description": "A simple flutter chat application using Flutter",
+  "homepage": "https://github.com/mixin27/yoyo_chatt",
+  "main": ".cz-config.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "format": "dart format lib . && dart run import_sorter:main",
+    "gen": "dart run build_runner build -d",
+    "gen:locale": "dart run easy_localization:generate -S assets/translations -O lib/src/l10n -o locale_keys.g.dart -f keys",
+    "gen:once": "npm run gen && npm run gen:locale",
+    "gen:watch": "dart run build_runner watch -d",
+    "clean": "flutter clean && flutter pub get",
+    "commit": "cz-customizable",
+    "add:commit": "git add . && cz-customizable",
+    "fac": "npm run format && git add . && cz-customizable",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "flutter",
+    "chat",
+    "yoyo chatt"
+  ],
+  "author": "Kyaw Zayar Tun",
+  "license": "MIT",
+  "commit": "./node_modules/cz-customizable/standalone.js",
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    }
+  },
+  "dependencies": {
+    "commitlint": "^18.6.0",
+    "commitlint-config-gitmoji": "^2.3.1",
+    "cz-customizable": "^7.0.0",
+    "husky": "^9.0.10"
+  }
+}
