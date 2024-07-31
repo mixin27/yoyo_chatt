@@ -22,7 +22,11 @@ class AuthRepository {
   }
 
   Future<void> createUserWithEmailAndPassword(
-      String email, String password) async {
+    String email,
+    String password,
+    String firstName, [
+    String? lastName,
+  ]) async {
     final credential = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
     if (credential.user == null) throw Exception('Error on creating account.');
@@ -30,9 +34,10 @@ class AuthRepository {
     await FirebaseChatCore.instance.createUserInFirestore(
       types.User(
         id: credential.user!.uid,
-        firstName: email.split('@')[0],
-        lastName: '',
-        imageUrl: 'https://i.pravatar.cc/300',
+        firstName: firstName,
+        lastName: lastName,
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/yoyo-chatt.appspot.com/o/assets%2Fchattchatt.png?alt=media&token=492521e2-6b32-4e35-bab7-754ad23a029b',
       ),
     );
   }

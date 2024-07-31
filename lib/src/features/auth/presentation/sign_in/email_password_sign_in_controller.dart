@@ -18,10 +18,18 @@ class EmailPasswordSignInController extends _$EmailPasswordSignInController {
     required String email,
     required String password,
     required EmailPasswordSignInFormType formType,
+    String? firstName,
+    String? lastName,
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(
-      () => _authenticate(email, password, formType),
+      () => _authenticate(
+        email,
+        password,
+        formType,
+        firstName: firstName,
+        lastName: lastName,
+      ),
     );
     return state.hasError == false;
   }
@@ -29,8 +37,10 @@ class EmailPasswordSignInController extends _$EmailPasswordSignInController {
   Future<void> _authenticate(
     String email,
     String password,
-    EmailPasswordSignInFormType formType,
-  ) async {
+    EmailPasswordSignInFormType formType, {
+    String? firstName,
+    String? lastName,
+  }) async {
     final authRepository = ref.read(authRepositoryProvider);
 
     if (formType == EmailPasswordSignInFormType.signIn) {
@@ -45,7 +55,8 @@ class EmailPasswordSignInController extends _$EmailPasswordSignInController {
         }
       }
     } else {
-      await authRepository.createUserWithEmailAndPassword(email, password);
+      await authRepository.createUserWithEmailAndPassword(
+          email, password, firstName ?? '', lastName);
     }
   }
 }
