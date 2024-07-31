@@ -149,6 +149,12 @@ Firebase configuration
    npm i
    ```
 
+7. Run your app with environment variable
+
+```
+flutter run --dart-define ONESIGNAL_APP_ID=your_onesignal_app_id
+```
+
 ## Main Technologies Use
 
 - [flutter](http://flutter.dev/)
