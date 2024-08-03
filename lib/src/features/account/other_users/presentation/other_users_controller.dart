@@ -12,7 +12,7 @@ class OtherUsersController extends _$OtherUsersController {
   }
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 class OtherUsersStream extends _$OtherUsersStream {
   Stream<List<types.User>> _fetchUsers() {
     return FirebaseChatCore.instance.users();

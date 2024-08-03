@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:yoyo_chatt/src/features/app/app.dart';
 import 'package:yoyo_chatt/src/features/chat/chat_list/presentation/chat_list_controller.dart';
 import 'package:yoyo_chatt/src/shared/extensions/dart_extensions.dart';
 import 'package:yoyo_chatt/src/shared/widgets.dart';
@@ -23,7 +22,7 @@ class ChatListPage extends HookConsumerWidget {
     final chatRooms = ref.watch(chatListStreamProvider);
 
     return Scaffold(
-      drawer: const AppDrawer(),
+      // drawer: const AppDrawer(),
       appBar: AppBar(
         title: const Text('Yo. Chatt'),
       ),

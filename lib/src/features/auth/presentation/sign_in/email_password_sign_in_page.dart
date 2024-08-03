@@ -211,7 +211,7 @@ class _EmailPasswordSignInContentState
                           labelText: 'First'.hardcoded,
                           hintText: 'John'.hardcoded,
                           enabled: !state.isLoading,
-                          prefixIcon: const Icon(Icons.person),
+                          prefixIcon: const Icon(Icons.person_outline),
                         ),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (firstName) => !_submitted
@@ -234,7 +234,7 @@ class _EmailPasswordSignInContentState
                           labelText: 'Last'.hardcoded,
                           hintText: 'Doe'.hardcoded,
                           enabled: !state.isLoading,
-                          prefixIcon: const Icon(Icons.person),
+                          prefixIcon: const Icon(Icons.person_outline),
                         ),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         autocorrect: false,

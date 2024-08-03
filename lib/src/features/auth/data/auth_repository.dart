@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
@@ -42,7 +43,13 @@ class AuthRepository {
     );
   }
 
-  Future<void> signOut() {
+  Future<void> signOut() async {
+    final user = _auth.currentUser;
+    final usersCollectionRef = FirebaseFirestore.instance.collection('users');
+    await usersCollectionRef.doc(user!.uid).update({
+      'lastSeen': FieldValue.serverTimestamp(),
+    });
+
     return _auth.signOut();
   }
 

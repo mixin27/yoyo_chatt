@@ -15,8 +15,13 @@ class AppRouter extends $AppRouter {
         // Account
         AutoRoute(page: OtherUsersRoute.page, path: '/account/other-users'),
         AutoRoute(page: ProfileRoute.page, path: '/account/me'),
+        AutoRoute(page: EditProfileRoute.page, path: '/account/me/edit'),
 
         // Authentication
         AutoRoute(page: EmailPasswordSignInRoute.page, path: '/auth/login'),
+
+        // Misc
+        AutoRoute(page: AboutRoute.page, path: '/app/about'),
+        AutoRoute(page: PrivacyPolicyRoute.page, path: '/app/privacy-policy'),
       ];
 }
