@@ -22,7 +22,12 @@ extension AsyncValueUI on AsyncValue {
     if (error is AppException) {
       return error.message;
     } else {
-      return error.toString();
+      final errors = error.toString().split(']');
+      if (errors.length > 1) {
+        return error.toString().split(']')[1].trim();
+      } else {
+        return error.toString();
+      }
     }
   }
 }

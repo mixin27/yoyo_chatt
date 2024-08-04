@@ -2,10 +2,13 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'package:yoyo_chatt/src/shared/utils/utils.dart';
 
-// TODO(mixin27): replace with actual onesignal app id.
-const String onesignalAppId = '';
+const String onesignalAppId = String.fromEnvironment('ONESIGNAL_APP_ID');
 
 Future<void> initOneSignal() async {
+  if (onesignalAppId.isEmpty) {
+    throw AssertionError('ONESIGNAL_APP_ID is not set');
+  }
+
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 
   OneSignal.initialize(onesignalAppId);
@@ -26,4 +29,8 @@ Future<void> disablePush([bool disable = true]) async {
   } else {
     OneSignal.User.pushSubscription.optIn();
   }
+}
+
+bool? getPushSubsciption() {
+  return OneSignal.User.pushSubscription.optedIn;
 }

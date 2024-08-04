@@ -10,6 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yoyo_chatt/src/shared/errors.dart';
 import 'app_startup.dart';
 import 'features/app/presentation/app.dart';
+import 'shared/utils/onesignal/onesignal.dart';
 
 /// Helper class to initialize services and configure the error handlers
 class AppBootstrap {
@@ -58,9 +59,10 @@ void registerErrorHandlers(ErrorLogger errorLogger) {
         backgroundColor: Colors.redAccent,
         title: const Text('An error occurred'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: Center(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Text(details.toString()),
         ),
       ),
@@ -106,5 +108,11 @@ extension AppBootstrapFirebase on AppBootstrap {
     // * https://firebase.google.com/docs/emulator-suite/connect_firestore#instrument_your_app_to_talk_to_the_emulators
     FirebaseFirestore.instance.settings =
         const Settings(persistenceEnabled: false);
+  }
+}
+
+extension AppBootstrapOnesignal on AppBootstrap {
+  Future<void> setupOnesignal() async {
+    await initOneSignal();
   }
 }

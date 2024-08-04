@@ -15,7 +15,7 @@ class ChatListController extends _$ChatListController {
 @riverpod
 class ChatListStream extends _$ChatListStream {
   Stream<List<types.Room>> _fetchRooms() {
-    return FirebaseChatCore.instance.rooms();
+    return FirebaseChatCore.instance.rooms(orderByUpdatedAt: true);
   }
 
   @override

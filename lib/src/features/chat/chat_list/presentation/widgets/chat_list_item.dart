@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:yoyo_chatt/src/routes/routes.dart';
+import 'package:yoyo_chatt/src/shared/constants.dart';
 import 'package:yoyo_chatt/src/shared/utils/utils.dart';
 
 class ChatListItem extends HookConsumerWidget {
@@ -27,25 +29,39 @@ class ChatListItem extends HookConsumerWidget {
       },
       leading: otherUser.imageUrl != null
           ? CircleAvatar(
-              backgroundColor: Colors.grey.shade300,
-              child: Container(
-                width: 50,
-                height: 50,
-                margin: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      otherUser.imageUrl ?? '',
-                      // scale: 0.5,
+              radius: 34,
+              child: CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.grey.shade300,
+                child: CachedNetworkImage(
+                  imageUrl:
+                      '${room.type == types.RoomType.direct ? otherUser.imageUrl : room.imageUrl}',
+                  imageBuilder: (context, imageProvider) => Container(
+                    margin: const EdgeInsets.all(Sizes.p4),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                      shape: BoxShape.circle,
                     ),
+                  ),
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => const Center(
+                    child: Icon(Icons.broken_image_outlined),
                   ),
                 ),
               ),
             )
           : null,
-      title: Text(getNameFromUser(otherUser)),
+      title: Text(
+          '${room.type == types.RoomType.direct ? getNameFromUser(otherUser) : room.name}'),
+      subtitle: const Text(''),
+      trailing: otherUser.lastSeen == null
+          ? const SizedBox()
+          : Text(getLastSeenTime(otherUser.lastSeen!)),
     );
   }
 }

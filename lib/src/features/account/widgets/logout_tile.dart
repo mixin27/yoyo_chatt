@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:iconly/iconly.dart';
 
 import 'package:yoyo_chatt/src/features/account/widgets/logout_tile_controller.dart';
 import 'package:yoyo_chatt/src/routes/routes.dart';
@@ -45,7 +46,14 @@ class LogoutTile extends HookConsumerWidget {
                 }
               }
             },
-      title: Text('Logout'.hardcoded),
+      leading: const Icon(
+        IconlyLight.logout,
+        color: Colors.red,
+      ),
+      title: Text(
+        'Logout'.hardcoded,
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: 16),
+      ),
     );
   }
 }

@@ -16,6 +16,8 @@ void main() async {
   // * uncomment this to connect to the Firebase emulators
   // await appBootstrap.setupEmulators();
 
+  await appBootstrap.setupOnesignal();
+
   // create a container configured with all the required instances
   final container = await appBootstrap.createProviderContainer();
 

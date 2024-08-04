@@ -9,6 +9,7 @@ mixin EmailPasswordValidators {
       MinLengthStringValidator(8);
   final StringValidator passwordSignInSubmitValidator =
       NonEmptyStringValidator();
+  final StringValidator nameValidator = NonEmptyStringValidator();
 
   bool canSubmitEmail(String email) {
     return emailSubmitValidator.isValid(email);
@@ -20,6 +21,10 @@ mixin EmailPasswordValidators {
       return passwordRegisterSubmitValidator.isValid(password);
     }
     return passwordSignInSubmitValidator.isValid(password);
+  }
+
+  bool canSubmitName(String name) {
+    return nameValidator.isValid(name);
   }
 
   String? emailErrorText(String email) {
@@ -38,4 +43,20 @@ mixin EmailPasswordValidators {
         : 'Password is too short'.hardcoded;
     return showErrorText ? errorText : null;
   }
+
+  String? firstNameErrorText(String firstName) {
+    final bool showErrorText = !canSubmitName(firstName);
+    final String errorText = firstName.isEmpty
+        ? 'First name can\'t be empty'.hardcoded
+        : 'Invalid name'.hardcoded;
+    return showErrorText ? errorText : null;
+  }
+
+  // String? lastNameErrorText(String lastName) {
+  //   final bool showErrorText = !canSubmitName(lastName);
+  //   final String errorText = lastName.isEmpty
+  //       ? 'Last name can\'t be empty'.hardcoded
+  //       : 'Invalid name'.hardcoded;
+  //   return showErrorText ? errorText : null;
+  // }
 }

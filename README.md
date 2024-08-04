@@ -149,6 +149,10 @@ Firebase configuration
    npm i
    ```
 
+7. copy `.env.example`, rename to `.env` and fill your secrets
+
+8. Run your app.
+
 ## Main Technologies Use
 
 - [flutter](http://flutter.dev/)

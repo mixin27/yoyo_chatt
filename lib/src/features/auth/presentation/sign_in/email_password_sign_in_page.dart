@@ -28,6 +28,8 @@ class EmailPasswordSignInPage extends StatelessWidget {
   // * Keys for testing using find.byKey()
   static const emailKey = Key('email');
   static const passwordKey = Key('password');
+  static const firstNameKey = Key('first_name');
+  static const lastNameKey = Key('last_name');
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +95,13 @@ class _EmailPasswordSignInContentState
   final _node = FocusScopeNode();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
 
   String get email => _emailController.text;
   String get password => _passwordController.text;
+  String get firstName => _firstNameController.text;
+  String get lastName => _lastNameController.text;
 
   bool _secureText = true;
 
@@ -129,12 +135,24 @@ class _EmailPasswordSignInContentState
         email: email,
         password: password,
         formType: _formType,
+        firstName: firstName,
+        lastName: lastName,
       );
 
       if (success) {
         widget.onSignedIn?.call();
       }
     }
+  }
+
+  void _firstNameEditingComplete() {
+    if (canSubmitName(firstName)) {
+      _node.nextFocus();
+    }
+  }
+
+  void _lastNameEditingComplete() {
+    _node.nextFocus();
   }
 
   void _emailEditingComplete() {
@@ -179,8 +197,58 @@ class _EmailPasswordSignInContentState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              gapH8,
+              if (_formType == EmailPasswordSignInFormType.register) ...[
+                gapH8,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // First Name
+                    Expanded(
+                      child: TextFormField(
+                        key: EmailPasswordSignInPage.firstNameKey,
+                        controller: _firstNameController,
+                        decoration: InputDecoration(
+                          labelText: 'First'.hardcoded,
+                          hintText: 'John'.hardcoded,
+                          enabled: !state.isLoading,
+                          prefixIcon: const Icon(Icons.person_outline),
+                        ),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (firstName) => !_submitted
+                            ? null
+                            : firstNameErrorText(firstName ?? ''),
+                        autocorrect: false,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.light,
+                        onEditingComplete: () => _firstNameEditingComplete(),
+                      ),
+                    ),
+                    gapW8,
+                    // Last Name
+                    Expanded(
+                      child: TextFormField(
+                        key: EmailPasswordSignInPage.lastNameKey,
+                        controller: _lastNameController,
+                        decoration: InputDecoration(
+                          labelText: 'Last'.hardcoded,
+                          hintText: 'Doe'.hardcoded,
+                          enabled: !state.isLoading,
+                          prefixIcon: const Icon(Icons.person_outline),
+                        ),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        autocorrect: false,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.light,
+                        onEditingComplete: () => _lastNameEditingComplete(),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
 
+              gapH8,
               // Email field
               TextFormField(
                 key: EmailPasswordSignInPage.emailKey,

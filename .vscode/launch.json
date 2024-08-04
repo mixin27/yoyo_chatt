@@ -1,11 +1,12 @@
 {
-    "configurations": [
-      {
-        "name": "Launch YoyoChatt",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main.dart",
-        "args": ["--target", "lib/main.dart"]
-      }
-    ]
-  }
+  "configurations": [
+    {
+      "name": "Launch YoyoChatt",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["--target", "lib/main.dart"],
+      "toolArgs": ["--dart-define-from-file", ".env"]
+    }
+  ]
+}
