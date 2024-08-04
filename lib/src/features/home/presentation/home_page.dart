@@ -1,71 +1,58 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:iconly/iconly.dart';
 
-import 'package:yoyo_chatt/src/features/account/account.dart';
-import 'package:yoyo_chatt/src/features/chat/chat.dart';
-import 'package:yoyo_chatt/src/features/home/presentation/widgets/home_bottom_nav.dart';
-import 'package:yoyo_chatt/src/features/home/presentation/widgets/home_bottom_nav_controller.dart';
+import 'package:yoyo_chatt/src/routes/routes.dart';
+import 'package:yoyo_chatt/src/shared/extensions.dart';
+import 'package:yoyo_chatt/src/shared/widgets.dart';
 
 @RoutePage()
-class HomePage extends StatefulHookConsumerWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
-}
-
-class _HomePageState extends ConsumerState<HomePage>
-    with WidgetsBindingObserver {
-  final List<Widget> pages = const [
-    ChatListPage(),
-    OtherUsersPage(),
-    ProfilePage(),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (state == AppLifecycleState.resumed) {
-      // change online
-    } else {
-      // change offline
-      // ref.read(homePageControllerProvider.notifier).setLastSeen();
-
-      final user = FirebaseAuth.instance.currentUser;
-      if (user == null) return;
-
-      final usersCollectionRef = FirebaseFirestore.instance.collection('users');
-      await usersCollectionRef.doc(user.uid).update({
-        'lastSeen': FieldValue.serverTimestamp(),
-      });
-    }
-    super.didChangeAppLifecycleState(state);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // ref.listen(
-    //   homePageControllerProvider,
-    //   (_, state) => state.showAlertDialogOnError(context),
-    // );
-
-    final pageIndex = ref.watch(homeBottomNavControllerProvider);
-
-    return Scaffold(
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: pages.elementAt(pageIndex),
+    return ToggleOnlineWidget(
+      child: AutoTabsScaffold(
+        routes: const [
+          ChatListRoute(),
+          OtherUsersRoute(),
+          ProfileRoute(),
+        ],
+        transitionBuilder: (context, child, animation) => FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+        bottomNavigationBuilder: (context, tabsRouter) {
+          return NavigationBar(
+            animationDuration: const Duration(milliseconds: 400),
+            selectedIndex: tabsRouter.activeIndex,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+            onDestinationSelected: (index) => tabsRouter.setActiveIndex(index),
+            destinations: [
+              NavigationDestination(
+                icon: const Icon(IconlyLight.message),
+                label: 'Message'.hardcoded,
+              ),
+              NavigationDestination(
+                icon: const Icon(IconlyLight.user),
+                label: 'Users'.hardcoded,
+              ),
+              NavigationDestination(
+                icon: const Icon(IconlyLight.profile),
+                label: 'Profile'.hardcoded,
+              ),
+            ],
+          );
+        },
+        // builder: (context, child) {
+        //   return Scaffold(
+        //     body: child,
+        //     bottomNavigationBar: const HomeBottomNav(),
+        //   );
+        // },
       ),
-      bottomNavigationBar: const HomeBottomNav(),
     );
   }
 }

@@ -30,3 +30,7 @@ Future<void> disablePush([bool disable = true]) async {
     OneSignal.User.pushSubscription.optIn();
   }
 }
+
+bool? getPushSubsciption() {
+  return OneSignal.User.pushSubscription.optedIn;
+}

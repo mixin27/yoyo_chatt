@@ -49,7 +49,7 @@ class ProfilePage extends HookConsumerWidget {
             );
           }
 
-          return Column(
+          return ListView(
             children: [
               gapH16,
               Align(
@@ -57,94 +57,118 @@ class ProfilePage extends HookConsumerWidget {
                 child: ProfileAvatarWidget(avatarUrl: user.imageUrl ?? ''),
               ),
               gapH16,
-              Text(
-                getFullName(user.firstName, user.lastName),
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.w600),
-              ),
-              gapH16,
-              Expanded(
-                child: ListView(
-                  children: [
-                    ListTile(
-                      onTap: () => context.router.push(
-                        const PrivacyPolicyRoute(),
-                      ),
-                      leading: const Icon(IconlyLight.shield_done),
-                      title: Text('Privacy policy'.hardcoded),
-                      trailing: IconButton(
-                        onPressed: () async {
-                          if (!await launchUrl(Uri.parse(
-                              'https://www.termsfeed.com/live/c7928b94-c830-4e23-8ef2-ba8cdb09c35f'))) {
-                            throw Exception('Could not launch Privacy policy.');
-                          }
-                        },
-                        icon: const Icon(
-                          Icons.open_in_new_outlined,
-                          color: Colors.blueAccent,
-                        ),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Sizes.p16,
-                      ),
-                      child: Divider(),
-                    ),
-                    ListTile(
-                      onTap: () => context.router.push(const AboutRoute()),
-                      leading: const Icon(IconlyLight.info_circle),
-                      title: Text('About Yoyo Chatt'.hardcoded),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Sizes.p16,
-                      ),
-                      child: Divider(),
-                    ),
-                    AboutListTile(
-                      icon: const Icon(IconlyLight.document),
-                      applicationIcon: Image.asset(
-                        'assets/images/logo.png',
-                        width: 24,
-                        height: 24,
-                      ),
-                      applicationVersion: 'v2.0.0',
-                      applicationLegalese:
-                          'Copyright © ${DateTime.now().year} KYAW ZAYAR TUN',
-                      child: Text('License'.hardcoded),
-                      // child: const Markdown(
-                      //   data: AppStrings.aboutYoyoChatt,
-                      // ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Sizes.p16,
-                      ),
-                      child: Divider(),
-                    ),
-                    ListTile(
-                      onTap: () async {
-                        if (!await launchUrl(Uri.parse(
-                            'https://play.google.com/store/apps/details?id=com.norm.yoyo_chatt'))) {
-                          throw Exception('Could not launch Privacy policy.');
-                        }
-                      },
-                      leading: const Icon(IconlyLight.star),
-                      title: Text('Rate us'.hardcoded),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Sizes.p16,
-                      ),
-                      child: Divider(),
-                    ),
-                    const LogoutTile(),
-                  ],
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  getFullName(user.firstName, user.lastName),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(fontWeight: FontWeight.w600),
                 ),
               ),
+              gapH16,
+              ListTile(
+                onTap: () => context.router.push(
+                  const AccountSettingsRoute(),
+                ),
+                leading: const Icon(IconlyLight.lock),
+                title: Text('Account'.hardcoded),
+                subtitle: Text(
+                  'Security, email, password and delete account'.hardcoded,
+                ),
+              ),
+              ListTile(
+                onTap: () => context.router.push(const NotificationRoute()),
+                leading: const Icon(IconlyLight.notification),
+                title: Text('Notification'.hardcoded),
+                subtitle: Text('Push notification'.hardcoded),
+              ),
+              ListTile(
+                onTap: () => context.router.push(const AboutRoute()),
+                leading: const Icon(IconlyLight.info_circle),
+                title: Text('About Yoyo Chatt'.hardcoded),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Sizes.p16,
+                ),
+                child: Divider(),
+              ),
+              ListTile(
+                onTap: () async {
+                  if (!await launchUrl(Uri.parse(
+                      'https://play.google.com/store/apps/details?id=com.norm.yoyo_chatt'))) {
+                    throw Exception('Could not launch.');
+                  }
+                },
+                leading: const Icon(IconlyLight.star),
+                title: Text('Rate us'.hardcoded),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Sizes.p16,
+                ),
+                child: Divider(),
+              ),
+              AboutListTile(
+                icon: const Icon(IconlyLight.document),
+                applicationIcon: Image.asset(
+                  'assets/images/logo.png',
+                  width: 24,
+                  height: 24,
+                ),
+                applicationVersion: 'v2.0.0',
+                applicationLegalese:
+                    'Copyright © ${DateTime.now().year} KYAW ZAYAR TUN',
+                child: Text('License'.hardcoded),
+                // child: const Markdown(
+                //   data: AppStrings.aboutYoyoChatt,
+                // ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Sizes.p16,
+                ),
+                child: Divider(),
+              ),
+              ListTile(
+                onTap: () => context.router.push(
+                  const PrivacyPolicyRoute(),
+                ),
+                leading: const Icon(IconlyLight.shield_done),
+                title: Text('Privacy policy'.hardcoded),
+                trailing: IconButton(
+                  onPressed: () async {
+                    if (!await launchUrl(Uri.parse(
+                        'https://www.termsfeed.com/live/c7928b94-c830-4e23-8ef2-ba8cdb09c35f'))) {
+                      throw Exception('Could not launch Privacy policy.');
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.open_in_new_outlined,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Sizes.p16,
+                ),
+                child: Divider(),
+              ),
+              gapH8,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Sizes.p16,
+                ),
+                child: Text(
+                  'Account',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              const LogoutTile(),
+              // const DangerZoneWidget(),
             ],
           );
         },
@@ -257,36 +281,41 @@ class _ProfileAvatarWidgetState extends ConsumerState<ProfileAvatarWidget> {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        CircleAvatar(
-          radius: 54,
-          backgroundColor: Colors.grey.shade300,
+        InkWell(
+          onTap: () {
+            context.router.push(ProfileImageRoute(imageUrl: widget.avatarUrl));
+          },
           child: CircleAvatar(
-            radius: 50,
+            radius: 54,
             backgroundColor: Colors.grey.shade300,
-            // backgroundImage: NetworkImage(widget.avatarUrl),
-            child: _isAttachmentUploading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : CachedNetworkImage(
-                    imageUrl: widget.avatarUrl,
-                    imageBuilder: (context, imageProvider) => Container(
-                      margin: const EdgeInsets.all(Sizes.p4),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
+            child: CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.grey.shade300,
+              // backgroundImage: NetworkImage(widget.avatarUrl),
+              child: _isAttachmentUploading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : CachedNetworkImage(
+                      imageUrl: widget.avatarUrl,
+                      imageBuilder: (context, imageProvider) => Container(
+                        margin: const EdgeInsets.all(Sizes.p4),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                          shape: BoxShape.circle,
                         ),
-                        shape: BoxShape.circle,
+                      ),
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) => const Center(
+                        child: Icon(Icons.broken_image_outlined),
                       ),
                     ),
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    errorWidget: (context, url, error) => const Center(
-                      child: Icon(Icons.broken_image_outlined),
-                    ),
-                  ),
+            ),
           ),
         ),
         Positioned(

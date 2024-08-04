@@ -56,7 +56,8 @@ class ChatListItem extends HookConsumerWidget {
               ),
             )
           : null,
-      title: Text(getNameFromUser(otherUser)),
+      title: Text(
+          '${room.type == types.RoomType.direct ? getNameFromUser(otherUser) : room.name}'),
       subtitle: const Text(''),
       trailing: otherUser.lastSeen == null
           ? const SizedBox()

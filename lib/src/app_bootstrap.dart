@@ -59,9 +59,10 @@ void registerErrorHandlers(ErrorLogger errorLogger) {
         backgroundColor: Colors.redAccent,
         title: const Text('An error occurred'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: Center(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Text(details.toString()),
         ),
       ),

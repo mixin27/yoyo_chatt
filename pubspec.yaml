@@ -47,6 +47,8 @@ dependencies:
   url_launcher: ^6.3.0
   flutter_markdown: ^0.7.3
   cached_network_image: ^3.4.0
+  flutter_expandable_fab: ^2.2.0
+  photo_view: ^0.15.0
 
 dev_dependencies:
   flutter_test:

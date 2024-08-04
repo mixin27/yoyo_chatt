@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:yoyo_chatt/src/shared/constants.dart';
 import 'package:yoyo_chatt/src/shared/extensions.dart';
@@ -16,7 +17,16 @@ class PrivacyPolicyPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Privacy policy'.hardcoded),
       ),
-      body: const Markdown(data: AppStrings.privacyPolicy),
+      body: Markdown(
+        data: AppStrings.privacyPolicy,
+        onTapLink: (text, href, title) async {
+          if (href.isNullOrEmpty) return;
+
+          if (!await launchUrl(Uri.parse(href!))) {
+            throw Exception('Could not launch $href.');
+          }
+        },
+      ),
     );
   }
 }

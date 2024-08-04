@@ -90,7 +90,12 @@ class OtherUserListItemClickController
   }
 
   Future<types.Room> startChat(types.User otherUser) async {
-    final room = await FirebaseChatCore.instance.createRoom(otherUser);
+    final room = await FirebaseChatCore.instance.createRoom(
+      otherUser,
+      metadata: {
+        'delete': [],
+      },
+    );
     return room;
   }
 }

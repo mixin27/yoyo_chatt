@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:yoyo_chatt/src/features/chat/chat_list/presentation/chat_list_controller.dart';
+import 'package:yoyo_chatt/src/routes/routes.dart';
+import 'package:yoyo_chatt/src/shared/constants/app_sizes.dart';
 import 'package:yoyo_chatt/src/shared/extensions/dart_extensions.dart';
 import 'package:yoyo_chatt/src/shared/widgets.dart';
 import 'widgets/chat_list_item.dart';
@@ -48,6 +51,43 @@ class ChatListPage extends HookConsumerWidget {
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),
+      ),
+      floatingActionButtonLocation: ExpandableFab.location,
+
+      floatingActionButton: ExpandableFab(
+        type: ExpandableFabType.up,
+        distance: 65,
+        openButtonBuilder: RotateFloatingActionButtonBuilder(
+          child: const Icon(Icons.menu_open_outlined),
+          fabSize: ExpandableFabSize.regular,
+          shape: const CircleBorder(),
+        ),
+        children: [
+          Row(
+            children: [
+              Text('Direct'.hardcoded),
+              gapW20,
+              FloatingActionButton(
+                heroTag: 'direct-add',
+                onPressed: () =>
+                    context.router.navigate(const OtherUsersRoute()),
+                child: const Icon(Icons.person_add_outlined),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text('Group'.hardcoded),
+              gapW20,
+              FloatingActionButton(
+                heroTag: 'group-add',
+                onPressed: () =>
+                    context.router.push(const CreateGroupChatRoute()),
+                child: const Icon(Icons.group_add_outlined),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

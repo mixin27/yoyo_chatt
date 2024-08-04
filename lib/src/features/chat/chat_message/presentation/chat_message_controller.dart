@@ -101,6 +101,20 @@ class ChatMessageController extends _$ChatMessageController {
     );
     FirebaseChatCore.instance.sendMessage(message, roomId);
   }
+
+  Future<void> deleteChat(String roomId) async {
+    await FirebaseChatCore.instance.deleteRoom(roomId);
+    // final fu = FirebaseChatCore.instance.firebaseUser;
+    // if (fu == null) return;
+
+    // await FirebaseFirestore.instance.collection('room').doc(roomId).update({
+    //   'metadata': {
+    //     'delete': [
+    //       fu.uid,
+    //     ],
+    //   },
+    // });
+  }
 }
 
 @riverpod

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:yoyo_chatt/src/routes/routes.dart';
 
-class MyApp extends HookConsumerWidget {
+class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final _appRouter = AppRouter();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Yoyo Chatt',
