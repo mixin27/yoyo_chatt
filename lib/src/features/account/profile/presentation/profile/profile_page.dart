@@ -117,7 +117,7 @@ class ProfilePage extends HookConsumerWidget {
                   width: 24,
                   height: 24,
                 ),
-                applicationVersion: 'v2.0.0',
+                applicationVersion: 'v2.0.1',
                 applicationLegalese:
                     'Copyright © ${DateTime.now().year} KYAW ZAYAR TUN',
                 child: Text('License'.hardcoded),
