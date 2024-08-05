@@ -5,6 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconly/iconly.dart';
 
+import 'package:yoyo_chatt/src/features/account/account_settings/presentation/account_settings_page_controller.dart';
 import 'package:yoyo_chatt/src/features/account/delete_account/delete_account_page_controller.dart';
 import 'package:yoyo_chatt/src/features/auth/presentation/sign_in/emaill_password_validators.dart';
 import 'package:yoyo_chatt/src/shared/constants.dart';
@@ -68,14 +69,16 @@ class _DeleteAccountPageState extends ConsumerState<DeleteAccountPage>
 
     final state = ref.watch(deleteAccountPageControllerProvider);
 
+    final currentUser = ref.watch(currentUserStreamProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Delete this account'.hardcoded),
       ),
       body: Padding(
         padding: const EdgeInsets.all(Sizes.p16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,6 +123,31 @@ class _DeleteAccountPageState extends ConsumerState<DeleteAccountPage>
                         text:
                             'Logout your account after you\'ve deleted and don\'t sign in again within 30 days.',
                       ),
+                      gapH20,
+                      currentUser.when(
+                        data: (user) => user == null
+                            ? const SizedBox()
+                            : Text.rich(
+                                TextSpan(
+                                  text: 'Please type ',
+                                  children: [
+                                    TextSpan(
+                                      text: '${user.email}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: Sizes.p16),
+                                    ),
+                                    const TextSpan(
+                                        text: ' to delete your account.'),
+                                  ],
+                                ),
+                              ),
+                        error: (_, __) => const SizedBox(),
+                        loading: () => const SizedBox(),
+                      ),
                       gapH24,
                       Form(
                         key: _formKey,
@@ -132,9 +160,19 @@ class _DeleteAccountPageState extends ConsumerState<DeleteAccountPage>
                                 labelText: 'Email',
                                 prefixIcon: Icon(IconlyLight.message),
                               ),
-                              validator: (email) => !_submitted
-                                  ? null
-                                  : emailErrorText(email ?? ''),
+                              validator: (email) {
+                                if (!_submitted) return null;
+
+                                if (emailErrorText(email ?? '') != null) {
+                                  return emailErrorText(email ?? '');
+                                }
+
+                                if (email != currentUser.requireValue?.email) {
+                                  return 'Please provide email exactly.';
+                                }
+
+                                return null;
+                              },
                               inputFormatters: <TextInputFormatter>[
                                 ValidatorInputFormatter(
                                   editingValidator:
