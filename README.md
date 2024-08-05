@@ -161,3 +161,22 @@ Firebase configuration
 - [firebase](https://firebase.google.com/docs/flutter/setup?platform=android)
 - [riverpod](https://riverpod.dev/)
 - [auto_route](https://pub.dev/packages/auto_route)
+
+## Features
+
+- Register (Email/Password)
+- Direct Chat
+- Group Chat
+- Text, Image and File message
+- Link preview fetching
+- Account deletion request and change password
+
+## TODO
+
+- Social Login
+- Delete single message
+- Reply message
+- Pin message
+- Channel
+- Message deliver status
+- Message notifications
