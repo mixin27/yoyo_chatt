@@ -12,7 +12,6 @@ import 'package:yoyo_chatt/src/features/account/account.dart';
 import 'package:yoyo_chatt/src/features/account/profile/presentation/profile/profile_controller.dart';
 import 'package:yoyo_chatt/src/routes/routes.dart';
 import 'package:yoyo_chatt/src/shared/constants.dart';
-import 'package:yoyo_chatt/src/shared/constants/app_sizes.dart';
 import 'package:yoyo_chatt/src/shared/extensions/dart_extensions.dart';
 import 'package:yoyo_chatt/src/shared/utils/async/async_value_ui.dart';
 import 'package:yoyo_chatt/src/shared/utils/utils.dart';
@@ -114,7 +113,7 @@ class ProfilePage extends HookConsumerWidget {
               AboutListTile(
                 icon: const Icon(IconlyLight.document),
                 applicationIcon: Image.asset(
-                  'assets/images/logo.png',
+                  AppAssets.logo,
                   width: 24,
                   height: 24,
                 ),

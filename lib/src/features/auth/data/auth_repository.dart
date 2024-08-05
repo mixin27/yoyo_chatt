@@ -38,7 +38,7 @@ class AuthRepository {
         firstName: firstName,
         lastName: lastName,
         imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/yoyo-chatt.appspot.com/o/assets%2Fchattchatt.png?alt=media&token=492521e2-6b32-4e35-bab7-754ad23a029b',
+            'https://firebasestorage.googleapis.com/v0/b/yoyo-chatt.appspot.com/o/assets%2Fplaystore.png?alt=media&token=25be8c47-8a37-40de-bd8a-4ed0540a89eb',
       ),
     );
   }
