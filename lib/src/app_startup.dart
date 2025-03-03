@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'app_startup.g.dart';
 
 @Riverpod(keepAlive: true)
-FutureOr<void> appStartup(AppStartupRef ref) async {
+FutureOr<void> appStartup(Ref ref) async {
   ref.onDispose(() {
     // ensure dependent providers are disposed as well
     // ref.invalidate(onboardingRepositoryProvider);

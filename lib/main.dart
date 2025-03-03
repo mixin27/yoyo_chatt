@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -16,7 +18,7 @@ void main() async {
   // * uncomment this to connect to the Firebase emulators
   // await appBootstrap.setupEmulators();
 
-  await appBootstrap.setupOnesignal();
+  unawaited(appBootstrap.setupOnesignal());
 
   // create a container configured with all the required instances
   final container = await appBootstrap.createProviderContainer();
