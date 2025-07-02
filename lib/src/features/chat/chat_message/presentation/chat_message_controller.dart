@@ -17,17 +17,17 @@ class ChatMessageController extends _$ChatMessageController {
   }
 
   void handleMessageTap(
-      Message message, String roomId, String documentsDir) async {
+    Message message,
+    String roomId,
+    String documentsDir,
+  ) async {
     if (message is FileMessage) {
       var localPath = message.uri;
 
       if (message.uri.startsWith('http')) {
         try {
           final updatedMessage = message.copyWith(isLoading: true);
-          FirebaseChatCore.instance.updateMessage(
-            updatedMessage,
-            roomId,
-          );
+          FirebaseChatCore.instance.updateMessage(updatedMessage, roomId);
 
           final client = http.Client();
           final request = await client.get(Uri.parse(message.uri));
@@ -41,10 +41,7 @@ class ChatMessageController extends _$ChatMessageController {
           }
         } finally {
           final updatedMessage = message.copyWith(isLoading: false);
-          FirebaseChatCore.instance.updateMessage(
-            updatedMessage,
-            roomId,
-          );
+          FirebaseChatCore.instance.updateMessage(updatedMessage, roomId);
         }
       }
 
@@ -62,10 +59,7 @@ class ChatMessageController extends _$ChatMessageController {
     FirebaseChatCore.instance.updateMessage(updatedMessage, roomId);
   }
 
-  Future<void> sendTextMessage(
-    String roomId,
-    PartialText message,
-  ) async {
+  Future<void> sendTextMessage(String roomId, PartialText message) async {
     FirebaseChatCore.instance.sendMessage(message, roomId);
   }
 

@@ -16,10 +16,7 @@ import 'package:yoyo_chatt/src/shared/utils/utils.dart';
 
 @RoutePage()
 class ChatMessageMemberPage extends HookConsumerWidget {
-  const ChatMessageMemberPage({
-    super.key,
-    required this.roomId,
-  });
+  const ChatMessageMemberPage({super.key, required this.roomId});
 
   @PathParam('id')
   final String roomId;
@@ -40,37 +37,28 @@ class ChatMessageMemberPage extends HookConsumerWidget {
     final rolesState = ref.watch(chatRoomAdminStreamProvider(roomId));
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Members'.hardcoded),
-      ),
+      appBar: AppBar(title: Text('Members'.hardcoded)),
       body: roomState.when(
         data: (room) {
           return ChatMemberList(
             users: room.users,
             roles: rolesState.when(
               data: (roles) => roles,
-              error: (_, __) => {},
+              error: (_, _) => {},
               loading: () => {},
             ),
           );
         },
-        error: (_, error) => Center(
-          child: Text(error.toString()),
-        ),
-        loading: () => const Center(
-          child: CircularProgressIndicator.adaptive(),
-        ),
+        error: (_, error) => Center(child: Text(error.toString())),
+        loading: () =>
+            const Center(child: CircularProgressIndicator.adaptive()),
       ),
     );
   }
 }
 
 class ChatMemberList extends StatelessWidget {
-  const ChatMemberList({
-    super.key,
-    required this.users,
-    this.roles,
-  });
+  const ChatMemberList({super.key, required this.users, this.roles});
 
   final List<types.User> users;
   final Map<String, dynamic>? roles;
@@ -82,21 +70,14 @@ class ChatMemberList extends StatelessWidget {
       itemBuilder: (context, index) {
         final member = users[index];
 
-        return ChatMemberListItem(
-          user: member,
-          roles: roles,
-        );
+        return ChatMemberListItem(user: member, roles: roles);
       },
     );
   }
 }
 
 class ChatMemberListItem extends HookConsumerWidget {
-  const ChatMemberListItem({
-    super.key,
-    required this.user,
-    this.roles,
-  });
+  const ChatMemberListItem({super.key, required this.user, this.roles});
 
   final types.User user;
   final Map<String, dynamic>? roles;
@@ -116,10 +97,7 @@ class ChatMemberListItem extends HookConsumerWidget {
 
         if (context.mounted) {
           context.router.pushAndPopUntil(
-            ChatMessageRoute(
-              roomId: room.id,
-              room: room,
-            ),
+            ChatMessageRoute(roomId: room.id, room: room),
             predicate: (route) => route.settings.name == HomeRoute.name,
           );
         }
@@ -142,12 +120,10 @@ class ChatMemberListItem extends HookConsumerWidget {
                       shape: BoxShape.circle,
                     ),
                   ),
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Center(
-                    child: Icon(Icons.broken_image_outlined),
-                  ),
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) =>
+                      const Center(child: Icon(Icons.broken_image_outlined)),
                 ),
               ),
             )

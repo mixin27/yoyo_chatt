@@ -23,11 +23,7 @@ import 'package:yoyo_chatt/src/shared/utils/utils.dart';
 
 @RoutePage()
 class ChatMessagePage extends StatefulHookConsumerWidget {
-  const ChatMessagePage({
-    super.key,
-    required this.roomId,
-    required this.room,
-  });
+  const ChatMessagePage({super.key, required this.roomId, required this.room});
 
   @PathParam('id')
   final String roomId;
@@ -42,9 +38,7 @@ class _ChatMessagePageState extends ConsumerState<ChatMessagePage> {
   bool _isAttachmentUploading = false;
 
   void handleFileSelection() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-    );
+    final result = await FilePicker.platform.pickFiles(type: FileType.any);
 
     if (result != null && result.files.single.path != null) {
       _setAttachmentUploading(true);
@@ -59,7 +53,9 @@ class _ChatMessagePageState extends ConsumerState<ChatMessagePage> {
         await reference.putFile(file);
         final uri = await reference.getDownloadURL();
 
-        ref.read(chatMessageControllerProvider.notifier).sendFileMessage(
+        ref
+            .read(chatMessageControllerProvider.notifier)
+            .sendFileMessage(
               widget.roomId,
               name,
               result.files.single.size,
@@ -108,70 +104,72 @@ class _ChatMessagePageState extends ConsumerState<ChatMessagePage> {
 
   void handleAttachmentPressed() {
     showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        barrierLabel: 'attachment-modal',
-        context: context,
-        builder: (context) {
-          return DraggableScrollableSheet(
-            builder: (context, scrollController) {
-              return Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                  ),
+      backgroundColor: Colors.transparent,
+      barrierLabel: 'attachment-modal',
+      context: context,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          builder: (context, scrollController) {
+            return Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
                 ),
-                child: CustomScrollView(
-                  controller: scrollController,
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).hintColor,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
+              ),
+              child: CustomScrollView(
+                controller: scrollController,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).hintColor,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
                           ),
-                          height: 4,
-                          width: 40,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
                         ),
+                        height: 4,
+                        width: 40,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
                       ),
                     ),
-                    const SliverAppBar(
-                      title: Text('Attachments'),
-                      primary: false,
-                      pinned: true,
-                      centerTitle: false,
-                    ),
-                    SliverList.list(
-                      children: [
-                        ListTile(
-                          onTap: () {
-                            Navigator.pop(context);
-                            handleImageSelection();
-                          },
-                          leading: const Icon(IconlyLight.image),
-                          title: Text('Photo'.hardcoded),
-                        ),
-                        ListTile(
-                          onTap: () {
-                            Navigator.pop(context);
-                            handleFileSelection();
-                          },
-                          leading: const Icon(IconlyLight.folder),
-                          title: Text('File'.hardcoded),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              );
-            },
-          );
-        });
+                  ),
+                  const SliverAppBar(
+                    title: Text('Attachments'),
+                    primary: false,
+                    pinned: true,
+                    centerTitle: false,
+                  ),
+                  SliverList.list(
+                    children: [
+                      ListTile(
+                        onTap: () {
+                          Navigator.pop(context);
+                          handleImageSelection();
+                        },
+                        leading: const Icon(IconlyLight.image),
+                        title: Text('Photo'.hardcoded),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          Navigator.pop(context);
+                          handleFileSelection();
+                        },
+                        leading: const Icon(IconlyLight.folder),
+                        title: Text('File'.hardcoded),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   void handleSendPressed(types.PartialText message) {
@@ -227,12 +225,10 @@ class _ChatMessagePageState extends ConsumerState<ChatMessagePage> {
                         shape: BoxShape.circle,
                       ),
                     ),
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    errorWidget: (context, url, error) => const Center(
-                      child: Icon(Icons.broken_image_outlined),
-                    ),
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Center(child: Icon(Icons.broken_image_outlined)),
                   ),
                 ),
               ),
@@ -279,51 +275,55 @@ class _ChatMessagePageState extends ConsumerState<ChatMessagePage> {
                 PopupMenuItem(
                   onTap: () {
                     showAdaptiveDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Delete conversation'.hardcoded),
-                            content: const Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                    'Deleting chat is a permanent option. Are you sure you want to delete?')
-                              ],
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => context.router.popForced(),
-                                child: Text('Cancel'.hardcoded),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  if (widget.room.type ==
-                                      types.RoomType.direct) {
-                                    ref
-                                        .read(chatMessageControllerProvider
-                                            .notifier)
-                                        .deleteChat(widget.roomId);
-
-                                    context.router.popUntil((route) =>
-                                        route.settings.name == HomeRoute.name);
-                                  } else {
-                                    // only for admin to delete chat
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Currently, deleting a group chat is not supported.'
-                                              .hardcoded,
-                                        ),
-                                      ),
-                                    );
-                                    context.router.popForced();
-                                  }
-                                },
-                                child: Text('Delete'.hardcoded),
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Delete conversation'.hardcoded),
+                          content: const Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Deleting chat is a permanent option. Are you sure you want to delete?',
                               ),
                             ],
-                          );
-                        });
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => context.router.pop(),
+                              child: Text('Cancel'.hardcoded),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                if (widget.room.type == types.RoomType.direct) {
+                                  ref
+                                      .read(
+                                        chatMessageControllerProvider.notifier,
+                                      )
+                                      .deleteChat(widget.roomId);
+
+                                  context.router.popUntil(
+                                    (route) =>
+                                        route.settings.name == HomeRoute.name,
+                                  );
+                                } else {
+                                  // only for admin to delete chat
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Currently, deleting a group chat is not supported.'
+                                            .hardcoded,
+                                      ),
+                                    ),
+                                  );
+                                  context.router.pop();
+                                }
+                              },
+                              child: Text('Delete'.hardcoded),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   child: Row(
                     children: [
@@ -351,7 +351,7 @@ class _ChatMessagePageState extends ConsumerState<ChatMessagePage> {
         showUserAvatars: true,
         messages: messagesState.when(
           data: (messages) => messages,
-          error: (_, __) => [],
+          error: (_, _) => [],
           loading: () => [],
         ),
         onSendPressed: handleSendPressed,

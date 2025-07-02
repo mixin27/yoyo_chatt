@@ -19,10 +19,12 @@ class AuthGuard extends AutoRouteGuard {
       resolver.next(true);
     } else {
       // router.replaceAll([EmailPasswordSignInRoute()]);
-      resolver.redirect(
-        EmailPasswordSignInRoute(onSignedIn: (success) {
-          resolver.next(success);
-        }),
+      resolver.redirectUntil(
+        EmailPasswordSignInRoute(
+          onSignedIn: (success) {
+            resolver.next(success);
+          },
+        ),
       );
     }
   }

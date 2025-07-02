@@ -145,7 +145,7 @@ class _DeleteAccountPageState extends ConsumerState<DeleteAccountPage>
                                   ],
                                 ),
                               ),
-                        error: (_, __) => const SizedBox(),
+                        error: (_, _) => const SizedBox(),
                         loading: () => const SizedBox(),
                       ),
                       gapH24,
